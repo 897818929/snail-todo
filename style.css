@@ -17,3 +17,8 @@
   .deadline-field { flex: 1; }
   #task-deadline { width: 100%; }
 }
+
+/* 全部完成按钮 */
+.toolbar { flex-wrap: wrap; }
+#complete-all { color: #476848; background: #edf2e7; padding: 8px 10px; border-radius: 7px; }
+#complete-all:hover:not(:disabled) { background: #e1ebd9; }

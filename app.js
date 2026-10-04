@@ -33,6 +33,7 @@
     $('remaining').textContent = `${active} 件待办等待完成`;
     $('summary').textContent = tasks.length ? `已完成 ${done} / ${tasks.length} 件，每一步都算数。` : '今天，也是向前的一天。';
     $('clear-done').disabled = done === 0;
+    $('complete-all').disabled = active === 0;
     const visible = tasks.filter((task) => filter === 'all' || (filter === 'done' ? task.done : !task.done));
     $('task-list').replaceChildren();
     for (const task of visible) {
@@ -75,6 +76,11 @@
     render();
   }
   document.querySelectorAll('[data-filter]').forEach((button) => button.addEventListener('click', () => setFilter(button.dataset.filter)));
+  $('complete-all').addEventListener('click', () => {
+    tasks.forEach((task) => { task.done = true; });
+    save();
+    render();
+  });
   $('clear-done').addEventListener('click', () => { tasks = tasks.filter((task) => !task.done); save(); render(); });
   $('date').textContent = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric', weekday: 'short' }).format(new Date());
   render();
