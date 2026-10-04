@@ -14,7 +14,7 @@
     <section class="intro"><div class="eyebrow">ONE STEP AT A TIME</div><h1>慢慢来，也会到达。</h1><p>把想做的事记下来，从一件小事开始。</p></section>
     <section class="todo-panel" aria-label="待办事项">
       <div class="panel-heading"><div><h2>我的待办</h2><p id="summary" aria-live="polite">今天，也是向前的一天。</p></div><span class="date" id="date"></span></div>
-      <form id="add-form"><label class="sr-only" for="task-input">新的待办事项</label><input id="task-input" placeholder="接下来，想完成什么？" maxlength="200" autocomplete="off" required><button class="add-button" type="submit"><span aria-hidden="true">＋</span> 添加</button></form>
+      <form id="add-form"><label class="sr-only" for="task-input">新的待办事项</label><input id="task-input" placeholder="接下来，想完成什么？" maxlength="200" autocomplete="off" required><div class="deadline-field"><label for="task-deadline">截止时间（可选）</label><input id="task-deadline" type="datetime-local"></div><button class="add-button" type="submit"><span aria-hidden="true">＋</span> 添加</button></form>
       <div class="toolbar"><div class="filters" role="group" aria-label="筛选待办"><button type="button" data-filter="all" aria-pressed="true">全部 <span id="all-count">0</span></button><button type="button" data-filter="active" aria-pressed="false">待完成 <span id="active-count">0</span></button><button type="button" data-filter="done" aria-pressed="false">已完成 <span id="done-count">0</span></button></div><button id="clear-done" type="button">清除已完成</button></div>
       <ul id="task-list" aria-label="任务列表"></ul>
       <div class="empty" id="empty"><span aria-hidden="true">🌱</span><h3>留一点空间，给新的开始</h3><p>添加你的第一件待办，慢慢把日子过好。</p></div>
