@@ -4,6 +4,7 @@
   const $ = (id) => document.getElementById(id);
   let tasks = [];
   let filter = 'all';
+  let sortDirection = null;
   const notify = (message) => { $('notice').textContent = message; $('notice').hidden = false; };
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
@@ -34,6 +35,15 @@
     $('summary').textContent = tasks.length ? `已完成 ${done} / ${tasks.length} 件，每一步都算数。` : '今天，也是向前的一天。';
     $('clear-done').disabled = done === 0;
     const visible = tasks.filter((task) => filter === 'all' || (filter === 'done' ? task.done : !task.done));
+    if (sortDirection) {
+      visible.sort((a, b) => {
+        if (!a.deadline && !b.deadline) return 0;
+        if (!a.deadline) return 1;
+        if (!b.deadline) return -1;
+        const difference = Date.parse(a.deadline) - Date.parse(b.deadline);
+        return sortDirection === 'asc' ? difference : -difference;
+      });
+    }
     $('task-list').replaceChildren();
     for (const task of visible) {
       const row = document.createElement('li');
@@ -75,6 +85,13 @@
     render();
   }
   document.querySelectorAll('[data-filter]').forEach((button) => button.addEventListener('click', () => setFilter(button.dataset.filter)));
+  $('sort-deadline').addEventListener('click', () => {
+    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+    $('sort-deadline').textContent = '排序';
+    $('sort-deadline').setAttribute('aria-pressed', 'true');
+    $('sort-deadline').setAttribute('aria-label', sortDirection === 'asc' ? '当前按截止时间从早到晚排序，点击切换为从晚到早' : '当前按截止时间从晚到早排序，点击切换为从早到晚');
+    render();
+  });
   $('clear-done').addEventListener('click', () => { tasks = tasks.filter((task) => !task.done); save(); render(); });
   $('date').textContent = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric', weekday: 'short' }).format(new Date());
   render();

@@ -17,3 +17,9 @@
   .deadline-field { flex: 1; }
   #task-deadline { width: 100%; }
 }
+
+/* 排序控件在窄屏自动换行。 */
+.toolbar { flex-wrap: wrap; }
+#sort-deadline { color: #476848; padding: 8px 10px; border-radius: 7px; background: #f0f3eb; }
+#sort-deadline[aria-pressed="true"] { background: #e4eddb; font-weight: 600; }
+#sort-deadline:hover { background: #e4eddb; }
